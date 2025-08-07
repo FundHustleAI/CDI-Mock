@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>CDI Mock - Home</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            background-color: #f8f8f8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.05);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        p {
+            font-size: 16px;
+            color: #555;
+        }
+
+        a.button {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 30px;
+            font-size: 16px;
+            color: white;
+            background-color: #007AFF;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: background 0.2s ease;
+        }
+
+        a.button:hover {
+            background-color: #005eea;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to CDI Mock</h1>
+        <p>Your gateway to IELTS mock testing</p>
+        <a href="{% url 'auth' %}" class="button">Get Started</a>
+    </div>
+</body>
+</html>
