@@ -11,9 +11,17 @@
             font-family: "Segoe UI", sans-serif;
         }
 
-        body, html {
+        html, body {
             height: 100%;
             width: 100%;
+            opacity: 0;
+            animation: fadeIn 1s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         body {
@@ -28,20 +36,20 @@
             left: 0;
             height: 100%;
             width: 100%;
-            background-color: rgba(0, 0, 64, 0.6); /* Deep blue with transparency */
+            background-color: rgba(0, 0, 64, 0.6);
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .logo {
+        .logo-image {
             position: absolute;
             top: 30px;
-            left: 40px;
-            font-size: 24px;
-            color: white;
-            font-weight: bold;
-            letter-spacing: 1px;
+            left: 30px;
+            height: 50px;
+            width: auto;
+            animation: fadeIn 1s ease 0.5s forwards;
+            opacity: 0;
         }
 
         .form-box {
@@ -51,6 +59,16 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
             width: 100%;
             max-width: 400px;
+            transform: translateY(30px);
+            opacity: 0;
+            animation: slideUp 1s ease 0.8s forwards;
+        }
+
+        @keyframes slideUp {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
         }
 
         .form-box h2 {
@@ -59,18 +77,28 @@
             color: #003366;
         }
 
-        .form-box label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
+        .input-group {
+            display: flex;
+            align-items: center;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            padding: 10px;
+            margin-bottom: 20px;
+            background-color: #f9f9f9;
         }
 
-        .form-box input {
-            width: 100%;
-            padding: 10px;
-            border-radius: 6px;
-            border: 1px solid #ccc;
-            margin-bottom: 20px;
+        .input-group img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .input-group input {
+            border: none;
+            outline: none;
+            background: transparent;
+            flex: 1;
+            font-size: 15px;
         }
 
         .form-box button {
@@ -82,10 +110,16 @@
             border-radius: 6px;
             font-size: 16px;
             cursor: pointer;
+            transition: background-color 0.3s ease;
         }
 
         .form-box button:hover {
             background-color: #0055aa;
+        }
+
+        .form-box button:disabled {
+            background-color: #999;
+            cursor: not-allowed;
         }
 
         .error-message {
@@ -93,28 +127,61 @@
             text-align: center;
             margin-bottom: 15px;
         }
+
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #003366;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
     </style>
 </head>
 <body>
     <div class="overlay">
-        <div class="logo">CDI Mock</div>
+        <img src="/static/img/Logo.png" alt="CDI Logo" class="logo-image">
 
         <div class="form-box">
             <h2>Login or Register</h2>
             {% if error %}
                 <p class="error-message">{{ error }}</p>
             {% endif %}
-            <form method="post">
+            <form method="post" id="loginForm">
                 {% csrf_token %}
                 <label for="username">Username:</label>
-                <input type="text" name="username" id="username" required>
+                <div class="input-group">
+                    <img src="/static/img/user.png" alt="User Icon">
+                    <input type="text" name="username" id="username" required>
+                </div>
 
                 <label for="phone_number">Phone Number:</label>
-                <input type="text" name="phone_number" id="phone_number" required>
+                <div class="input-group">
+                    <img src="/static/img/telephone.png" alt="Phone Icon">
+                    <input type="text" name="phone_number" id="phone_number" required>
+                </div>
 
-                <button type="submit">Continue</button>
+                <button type="submit" id="submitBtn">Continue</button>
             </form>
         </div>
     </div>
+
+    <script>
+        const form = document.getElementById('loginForm');
+        const button = document.getElementById('submitBtn');
+
+        form.addEventListener('submit', function() {
+            button.disabled = true;
+            button.innerHTML = 'Loading <span class="loader"></span>';
+        });
+    </script>
 </body>
 </html>

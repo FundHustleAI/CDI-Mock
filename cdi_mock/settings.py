@@ -101,6 +101,12 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 AUTH_USER_MODEL = 'app.User'
+LOGIN_URL = 'auth'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'auth'
+
+SESSION_COOKIE_AGE = 60 * 60 * 24 * 30  # 30 days
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 
 # Internationalization

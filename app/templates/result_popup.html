@@ -1,0 +1,4 @@
+<script>
+    alert("You scored {{ score }}. {% if passed %}Passed{% else %}Failed{% endif %}");
+    window.location.href = "{% url 'home' %}";
+</script>
